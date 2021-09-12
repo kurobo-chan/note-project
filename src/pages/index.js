@@ -4,12 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight, faHome } from "@fortawesome/free-solid-svg-icons"
 import { faGithub } from "@fortawesome/free-brands-svg-icons"
 import Wave from "../animations/wave"
+import SEO from "../components/seo"
 
-export default function Home()
-{
+export default function Home() {
   return (
-    <div class="home">
+    <div className="home">
       <Layout>
+        <SEO />
         <main>
           <section className="partsGrid latestPost">
             <article className="grid12">
@@ -83,7 +84,7 @@ export default function Home()
             </a>
           </section>
           <section className="portfolio">
-            <Wave/>
+            <Wave />
             <div className="partsGrid">
               <div className="containerTitle">
                 <h2>PORTFOLIO</h2>
