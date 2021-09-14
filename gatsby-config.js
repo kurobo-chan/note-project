@@ -52,7 +52,18 @@ module.exports = {
           {
             endpoint: "portfolio",
           },
+          {
+            endpoint: "profile",
+          },
         ],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
+        head: true,
+        respectDNT: true,
       },
     },
   ],

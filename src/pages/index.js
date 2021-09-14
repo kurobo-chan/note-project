@@ -5,8 +5,13 @@ import { faChevronRight, faHome } from "@fortawesome/free-solid-svg-icons"
 import { faGithub } from "@fortawesome/free-brands-svg-icons"
 import Wave from "../animations/wave"
 import SEO from "../components/seo"
+import { graphql, Link } from "gatsby"
+import Imgix from "react-imgix"
+import htmlToText from "html-to-text"
 
-export default function Home() {
+export default function Home({ data }) {
+  const pb =
+    (data.microcmsBlog.eyecatch.height / data.microcmsBlog.eyecatch.width) * 100
   return (
     <div className="home">
       <Layout>
@@ -15,20 +20,39 @@ export default function Home() {
           <section className="partsGrid latestPost">
             <article className="grid12">
               <div className="textBox">
-                <h1>スクロールして要素が見えたらクラスを追加するJavaScript</h1>
+                <h1>{data.microcmsBlog.title}</h1>
                 <p>
-                  最近、スクロールして要素が見えたら指定の要素をアニメーションさせる動作をさせるサイトをよく見ます。私もそんなおしゃれなサイトを作成したいのですがその場合、苦手分野でもあるJavaScriptを使うのでどうしてもプラグインで逃げて今まで過ごしてきました・・・。流石にこのままではいけませんので一からコードを書けるように頑張ってみました。
+                  {`${htmlToText
+                    .fromString(data.microcmsBlog.content, {
+                      ignoreImage: true,
+                      ignoreHref: true,
+                    })
+                    .slice(0, 200)}…`}
                 </p>
               </div>
               <figure className="eyecatch">
-                <img src="/images/test.jpg" alt="" />
+                <div
+                  className="eyecatch-wrapper"
+                  style={{ paddingBottom: `${pb}%` }}
+                >
+                  <Imgix
+                    src={data.microcmsBlog.eyecatch.url}
+                    sizes="100%"
+                    htmlAttributes={{
+                      alt: data.microcmsBlog.title,
+                    }}
+                  />
+                </div>
               </figure>
             </article>
             <div className="grid12">
-              <a href="note.html" className="moreBtn">
+              <Link
+                to={`/blog/post/${data.microcmsBlog.slug}`}
+                className="moreBtn"
+              >
                 Go to this page
                 <FontAwesomeIcon icon={faChevronRight} />
-              </a>
+              </Link>
             </div>
           </section>
           <section className="partsGrid posts">
@@ -37,51 +61,34 @@ export default function Home() {
               <span>Note</span>
             </div>
             <div className="cardContainer grid12">
-              <a href="note.html" tabIndex={0} className="card">
-                <article>
-                  <figure className="eyecatch">
-                    <img src="/images/test.jpg" alt="" className="hvr-grow" />
-                  </figure>
-                  <div className="cardContent">
-                    <h3>スクロールして要素が見えたらクラスを追加す…</h3>
-                  </div>
-                </article>
-              </a>
-              <a href="#" tabIndex={0} className="card">
-                <article>
-                  <figure className="eyecatch">
-                    <img src="/images/test.jpg" alt="" />
-                  </figure>
-                  <div className="cardContent">
-                    <h3>スクロールして要素が見えたらクラスを追加す…</h3>
-                  </div>
-                </article>
-              </a>
-              <a href="#" tabIndex={0} className="card">
-                <article>
-                  <figure className="eyecatch">
-                    <img src="/images/test.jpg" alt="" />
-                  </figure>
-                  <div className="cardContent">
-                    <h3>スクロールして要素が見えたらクラスを追加す…</h3>
-                  </div>
-                </article>
-              </a>
-              <a href="#" tabIndex={0} className="card">
-                <article>
-                  <figure className="eyecatch">
-                    <img src="/images/test.jpg" alt="" />
-                  </figure>
-                  <div className="cardContent">
-                    <h3>スクロールして要素が見えたらクラスを追加す…</h3>
-                  </div>
-                </article>
-              </a>
+              {data.allMicrocmsBlog.edges.map(({ node }) => (
+                <Link
+                  to={`/blog/post/${node.slug}/`}
+                  tabIndex={0}
+                  className="card"
+                  key={node.id}
+                >
+                  <article>
+                    <figure className="eyecatch">
+                      <Imgix
+                        src={node.eyecatch.url}
+                        htmlAttributes={{
+                          alt: node.title,
+                        }}
+                        className="hvr-grow"
+                      />
+                    </figure>
+                    <div className="cardContent">
+                      <h3>{`${node.title.slice(0, 22)}…`}</h3>
+                    </div>
+                  </article>
+                </Link>
+              ))}
             </div>
-            <a href="posts.html" className="moreBtn">
+            <Link to={`/blog/`} className="moreBtn">
               Note一覧
               <FontAwesomeIcon icon={faChevronRight} />
-            </a>
+            </Link>
           </section>
           <section className="portfolio">
             <Wave />
@@ -91,75 +98,43 @@ export default function Home() {
                 <span>Portfolio</span>
               </div>
               <div className="cardContainer grid12">
-                <article className="card">
-                  <figure className="eyecatch">
-                    <img src="/images/test.jpg" alt="" className="hvr-grow" />
-                  </figure>
-                  <div className="cardContent">
-                    <h3>作品のタイトル</h3>
-                    <div className="linkList">
-                      <a href="#" className="webPageBtn hvr-fade">
-                        <FontAwesomeIcon icon={faHome} />
-                      </a>
-                      <a href="#" className="githubBtn hvr-fade">
-                        <FontAwesomeIcon icon={faGithub} />
-                      </a>
+                {data.allMicrocmsPortfolio.edges.map(({ node }) => (
+                  <article className="card" key={node.id}>
+                    <figure className="eyecatch">
+                      <Imgix
+                        src={node.eyecatch.url}
+                        htmlAttributes={{
+                          alt: node.title,
+                        }}
+                        className="hvr-grow"
+                      />
+                    </figure>
+                    <div className="cardContent">
+                      <h3>{node.title}</h3>
+                      <div className="linkList">
+                        <Link
+                          to={`/works/${node.slug}/`}
+                          className="webPageBtn hvr-fade"
+                        >
+                          <FontAwesomeIcon icon={faHome} />
+                        </Link>
+                        <a
+                          href={node.githuburl}
+                          className="githubBtn hvr-fade"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <FontAwesomeIcon icon={faGithub} />
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                </article>
-                <article className="card">
-                  <figure className="eyecatch">
-                    <img src="/images/test.jpg" alt="" />
-                  </figure>
-                  <div className="cardContent">
-                    <h3>作品のタイトル</h3>
-                    <div className="linkList">
-                      <a href="#" className="webPageBtn">
-                        <i className="fas fa-home" />
-                      </a>
-                      <a href="#" className="githubBtn">
-                        <i className="fab fa-github" />
-                      </a>
-                    </div>
-                  </div>
-                </article>
-                <article className="card">
-                  <figure className="eyecatch">
-                    <img src="/images/test.jpg" alt="" />
-                  </figure>
-                  <div className="cardContent">
-                    <h3>作品のタイトル</h3>
-                    <div className="linkList">
-                      <a href="#" className="webPageBtn">
-                        <i className="fas fa-home" />
-                      </a>
-                      <a href="#" className="githubBtn">
-                        <i className="fab fa-github" />
-                      </a>
-                    </div>
-                  </div>
-                </article>
-                <article className="card">
-                  <figure className="eyecatch">
-                    <img src="/images/test.jpg" alt="" />
-                  </figure>
-                  <div className="cardContent">
-                    <h3>作品のタイトル</h3>
-                    <div className="linkList">
-                      <a href="#" className="webPageBtn">
-                        <i className="fas fa-home" />
-                      </a>
-                      <a href="#" className="githubBtn">
-                        <i className="fab fa-github" />
-                      </a>
-                    </div>
-                  </div>
-                </article>
+                  </article>
+                ))}
               </div>
-              <a href="portfolio.html" className="moreBtn">
+              <Link to={`/portfolio/`} className="moreBtn">
                 Portfolio一覧
                 <FontAwesomeIcon icon={faChevronRight} />
-              </a>
+              </Link>
             </div>
           </section>
         </main>
@@ -167,3 +142,53 @@ export default function Home() {
     </div>
   )
 }
+
+export const query = graphql`
+  query {
+    allMicrocmsPortfolio(
+      sort: { order: DESC, fields: publishDate }
+      skip: 0
+      limit: 4
+    ) {
+      edges {
+        node {
+          id
+          slug
+          eyecatch {
+            height
+            url
+            width
+          }
+          githuburl
+          title
+        }
+      }
+    }
+    microcmsBlog {
+      title
+      content
+      slug
+      eyecatch {
+        url
+        height
+        width
+      }
+    }
+    allMicrocmsBlog(
+      sort: { order: DESC, fields: publishDate }
+      limit: 4
+      skip: 0
+    ) {
+      edges {
+        node {
+          title
+          eyecatch {
+            url
+          }
+          id
+          slug
+        }
+      }
+    }
+  }
+`

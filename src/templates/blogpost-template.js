@@ -10,13 +10,15 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons"
-import { faTwitter, faFacebookF } from "@fortawesome/free-brands-svg-icons"
 import { graphql, Link } from "gatsby"
 import Imgix from "react-imgix"
 import htmlToText from "html-to-text"
 import { unified } from "unified"
 import parse from "rehype-parse"
 import rehypeReact from "rehype-react"
+import { Facebook, Twitter } from "react-sharingbuttons"
+import "react-sharingbuttons/dist/main.css"
+
 
 const renderAst = new rehypeReact({
   createElement: React.createElement,
@@ -41,7 +43,7 @@ export default function Home({ location, data, pageContext }) {
     .use(parse, { fragment: true })
     .parse(data.microcmsBlog.content)
   const pb =
-    (data.microcmsBlog.fields.height / data.microcmsBlog.fields.width) * 100
+    (data.microcmsBlog.eyecatch.height / data.microcmsBlog.eyecatch.width) * 100
   return (
     <Layout>
       <SEO
@@ -54,8 +56,8 @@ export default function Home({ location, data, pageContext }) {
           })
           .slice(0, 70)}…`}
         blogimg={data.microcmsBlog.eyecatch.url}
-        pageimgw={data.microcmsBlog.fields.width}
-        pageimgh={data.microcmsBlog.fields.height}
+        pageimgw={data.microcmsBlog.eyecatch.width}
+        pageimgh={data.microcmsBlog.eyecatch.height}
       />
       <div>
         <main className="entry">
@@ -94,6 +96,7 @@ export default function Home({ location, data, pageContext }) {
                   >
                     <Imgix
                       src={data.microcmsBlog.eyecatch.url}
+                      sizes="100%"
                       htmlAttributes={{
                         alt: data.microcmsBlog.title,
                       }}
@@ -108,17 +111,12 @@ export default function Home({ location, data, pageContext }) {
             <article className="entryBody grid12">{renderAst(htmlAst)}</article>
             <div className="grid12">
               <div className="snsShare">
-                <a href="#" className="twitter">
-                  <span className="sr-only">Twitter</span>
-                  <FontAwesomeIcon icon={faTwitter} />
-                  <i className="fab fa-twitter" />
-                  SHARE
-                </a>
-                <a href="#" className="facebook">
-                  <span className="sr-only">facebook</span>
-                  <FontAwesomeIcon icon={faFacebookF} />
-                  SHARE
-                </a>
+                <Twitter
+                  url={`https://kurobo-chan.netlify.app${location.pathname}`}
+                />
+                <Facebook
+                  url={`https://kurobo-chan.netlify.app${location.pathname}`}
+                />
               </div>
             </div>
             <div className="pagination grid12">
@@ -160,8 +158,6 @@ export const query = graphql`
       }
       eyecatch {
         url
-      }
-      fields {
         height
         width
       }

@@ -15,15 +15,15 @@ export default function Home() {
       </button>
       <nav className="nav">
         <div className="navInner">
-          <a href="posts.html">
+          <Link to={`/blog/`} onClick={navFunc}>
             <FontAwesomeIcon icon={faFeather} />
             <span>note一覧</span>
-          </a>
-          <a href="portfolio.html">
+          </Link>
+          <Link to={`/portfolio/`} onClick={navFunc}>
             <FontAwesomeIcon icon={faKiwiBird} />
             <span>ポートフォリオ</span>
-          </a>
-          <Link to={`/`}>
+          </Link>
+          <Link to={`/portfolio/#profile`} onClick={navFunc}>
             <FontAwesomeIcon icon={faDragon} />
             <span>プロフィール</span>
           </Link>

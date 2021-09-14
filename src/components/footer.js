@@ -5,9 +5,9 @@ export default function Home() {
   return (
     <footer className="partsGrid footer">
       <nav>
-        <a href="posts.html">note一覧</a>
-        <a href="portfolio.html">ポートフォリオ</a>
-        <a href="portfolio.html#profile">プロフィール</a>
+        <Link to={`/blog/`}>note一覧</Link>
+        <Link to={`/portfolio/`}>ポートフォリオ</Link>
+        <Link to={`/portfolio/#profile`}>プロフィール</Link>
       </nav>
       <Link to={`/`}>
         <span className="siteName">KUROBO</span>

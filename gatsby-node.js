@@ -1,11 +1,30 @@
 const path = require("path")
-const axios = require("axios")
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
   const blogresult = await graphql(`
     query {
+      allMicrocmsPortfolio(sort: { order: DESC, fields: publishDate }) {
+        edges {
+          node {
+            id
+            slug
+          }
+          next {
+            title
+            slug
+          }
+          previous {
+            title
+            slug
+          }
+        }
+      }
       allMicrocmsBlog(sort: { fields: publishDate, order: DESC }) {
+        group(field: tag___tagSlug) {
+          fieldValue
+          totalCount
+        }
         edges {
           node {
             id
@@ -19,6 +38,13 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             slug
             title
           }
+        }
+      }
+      allMicrocmsTag {
+        nodes {
+          tag
+          tagSlug
+          tagId
         }
       }
     }
@@ -54,22 +80,50 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       },
     })
   })
-}
 
-exports.onCreateNode = async ({ node, actions }) => {
-  const { createNodeField } = actions
-  if (node.internal.type === `MicrocmsBlog`) {
-    const results = await axios.get(`${node.eyecatch.url}?fm=json`)
-    const { data } = results
-    createNodeField({
-      node,
-      name: "width",
-      value: data.PixelWidth,
+  const portfolioPostsPerPage = 8 // １ページに表示する記事の数
+  const portfolioPosts = blogresult.data.allMicrocmsPortfolio.edges.length // 記事の総数
+  const portfolioPages = Math.ceil(portfolioPosts / portfolioPostsPerPage) // 記事一覧ページの総数
+  Array.from({ length: portfolioPages }).forEach((_, i) => {
+    createPage({
+      path: i === 0 ? `/portfolio/` : `/portfolio/${i + 1}/`,
+      component: path.resolve("./src/templates/portfolio-template.js"),
+      context: {
+        skip: portfolioPostsPerPage * i,
+        limit: portfolioPostsPerPage,
+        currentPage: i + 1,
+        isFirst: i + 1 === 1,
+        isLast: i + 1 === portfolioPages,
+      },
     })
-    createNodeField({
-      node,
-      name: "height",
-      value: data.PixelHeight,
+  })
+
+  blogresult.data.allMicrocmsBlog.group.forEach(node => {
+    const tagPostsPerPage = 8
+    const tagPosts = node.totalCount
+    const tagPages = Math.ceil(tagPosts / tagPostsPerPage)
+    Array.from({ length: tagPages }).forEach((_, i) => {
+      createPage({
+        path:
+          i === 0
+            ? `/tag/${node.fieldValue}/`
+            : `/tag/${node.fieldValue}/${i + 1}/`,
+        component: path.resolve(`./src/templates/tag-template.js`),
+        context: {
+          tagid: blogresult.data.allMicrocmsTag.nodes.find(
+            n => n.tagSlug === node.fieldValue
+          ).tagId,
+          tagname: blogresult.data.allMicrocmsTag.nodes.find(
+            n => n.tagSlug === node.fieldValue
+          ).tag,
+          tagslug: node.fieldValue,
+          skip: tagPostsPerPage * i,
+          limit: tagPostsPerPage,
+          currentPage: i + 1,
+          isFirst: i + 1 === 1,
+          isLast: i + 1 === tagPages,
+        },
+      })
     })
-  }
+  })
 }

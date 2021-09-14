@@ -15,8 +15,8 @@ export default function Home({ location, data, pageContext }) {
   return (
     <Layout>
       <SEO
-        pagetitle="ブログ一覧"
-        pagedesc="KUROBOのブログ一覧です"
+        pagetitle={`TAG:${pageContext.tagname}`}
+        pagedesc={`「${pageContext.tagname}」タグの記事です`}
         pagepath={location.pathname}
       />
       <main>
@@ -24,7 +24,7 @@ export default function Home({ location, data, pageContext }) {
           <div className="grid12">
             <h1>
               <FontAwesomeIcon icon={faFeather} />
-              KUROBO note
+              {pageContext.tagname}
             </h1>
             <div className="tag">
               {data.allMicrocmsTag.edges.map(({ node }) => (
@@ -66,8 +66,8 @@ export default function Home({ location, data, pageContext }) {
                   <Link
                     to={
                       pageContext.currentPage === 2
-                        ? `/blog/`
-                        : `/blog/${pageContext.currentPage - 1}/`
+                        ? `/tag/${pageContext.tagslug}/`
+                        : `/tag/${pageContext.tagslug}/${pageContext.currentPage - 1}/`
                     }
                     rel="prev"
                   >
@@ -76,7 +76,7 @@ export default function Home({ location, data, pageContext }) {
                   </Link>
                 )}
                 {!pageContext.isLast && (
-                  <Link to={`/blog/${pageContext.currentPage + 1}/`} rel="next">
+                  <Link to={`/tag/${pageContext.tagslug}/${pageContext.currentPage + 1}/`} rel="next">
                     NEXT
                     <FontAwesomeIcon icon={faChevronRight} />
                   </Link>
@@ -91,11 +91,12 @@ export default function Home({ location, data, pageContext }) {
   )
 }
 export const query = graphql`
-  query ($skip: Int!, $limit: Int!) {
+  query ($tagid: String!, $skip: Int!, $limit: Int!) {
     allMicrocmsBlog(
       sort: { order: DESC, fields: publishDate }
       limit: $limit
       skip: $skip
+      filter: { tag: { elemMatch: { id: { eq: $tagid } } } }
     ) {
       edges {
         node {

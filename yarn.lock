@@ -2018,12 +2018,17 @@ aggregate-error@^3.0.0:
     clean-stack "^2.0.0"
     indent-string "^4.0.0"
 
-ajv-keywords@^3.5.2:
+ajv-errors@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ajv-errors/-/ajv-errors-1.0.1.tgz#f35986aceb91afadec4102fbd85014950cefa64d"
+  integrity sha512-DCRfO/4nQ+89p/RK43i8Ezd41EqdGIU4ld7nGF8OQ14oc/we5rEntLCUa7+jrn3nn83BosfwZA0wb4pon2o8iQ==
+
+ajv-keywords@^3.1.0, ajv-keywords@^3.5.2:
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-3.5.2.tgz#31f29da5ab6e00d1c2d329acf7b5929614d5014d"
   integrity sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==
 
-ajv@^6.10.0, ajv@^6.12.4, ajv@^6.12.5:
+ajv@^6.1.0, ajv@^6.10.0, ajv@^6.12.4, ajv@^6.12.5:
   version "6.12.6"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.6.tgz#baf5a62e802b07d977034586f8c3baf5adf26df4"
   integrity sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==
@@ -4858,6 +4863,15 @@ gatsby-page-utils@^1.13.0:
     lodash "^4.17.21"
     micromatch "^4.0.4"
 
+gatsby-plugin-google-analytics@^3.13.0:
+  version "3.13.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-google-analytics/-/gatsby-plugin-google-analytics-3.13.0.tgz#bdcd330eb3598af86f742cea166446ad94ffed5a"
+  integrity sha512-uABleg0WAgS20V3Budmx8P0KeXUimDSabGq9no9FgMR0ifFV8InxH39NAB+Rq47LpZRlIkQeorzJKAh6es9/rw==
+  dependencies:
+    "@babel/runtime" "^7.14.8"
+    minimatch "3.0.4"
+    web-vitals "^1.1.2"
+
 gatsby-plugin-manifest@^3.13.0:
   version "3.13.0"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-manifest/-/gatsby-plugin-manifest-3.13.0.tgz#ad7c207239a8295ae0dffaee9e4a13b7845b7987"
@@ -6671,7 +6685,7 @@ loader-utils@2.0.0, loader-utils@^2.0.0:
     emojis-list "^3.0.0"
     json5 "^2.1.2"
 
-loader-utils@^1.4.0:
+loader-utils@^1.1.0, loader-utils@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.4.0.tgz#c579b5e34cb34b1a74edc6c1fb36bfa371d5a613"
   integrity sha512-qH0WSMBtn/oHuwjy/NucEgbx5dbxxnxup9s4PVXJUDHZBQY+s0NWA9rJf53RBnQZxfch7euUui7hpoAPvALZdA==
@@ -8669,6 +8683,14 @@ react-refresh@^0.9.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.9.0.tgz#71863337adc3e5c2f8a6bfddd12ae3bfe32aafbf"
   integrity sha512-Gvzk7OZpiqKSkxsQvO/mbTN1poglhmAV7gR/DdIrRrSMXraRQQlfikRJOr3Nb9GTMPC5kof948Zy6jJZIFtDvQ==
 
+react-sharingbuttons@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-sharingbuttons/-/react-sharingbuttons-1.0.0.tgz#7e63564f8b3c7318636ad040dcf2bd2299ebec82"
+  integrity sha512-MRSQhpkHHL5SfOD7InRrG3ieZtYZ4PV2ukHghkEuMGPiIIlmBrb8WM9cRHblbwc24vdH8LHEkUNAqXF/HKG70A==
+  dependencies:
+    prop-types "^15.6.2"
+    style-loader "^0.23.1"
+
 react-side-effect@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-2.1.1.tgz#66c5701c3e7560ab4822a4ee2742dee215d72eb3"
@@ -9135,6 +9157,15 @@ scheduler@^0.20.2:
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
+
+schema-utils@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-1.0.0.tgz#0b79a93204d7b600d4b2850d1f66c2a34951c770"
+  integrity sha512-i27Mic4KovM/lnGsy8whRCHhc7VicJajAjTrYg11K9zfZXnYIt4k5F+kZkwjnrhKzLic/HLU4j11mjsz2G/75g==
+  dependencies:
+    ajv "^6.1.0"
+    ajv-errors "^1.0.0"
+    ajv-keywords "^3.1.0"
 
 schema-utils@^2.6.5:
   version "2.7.1"
@@ -9819,6 +9850,14 @@ strtok3@^6.2.4:
   dependencies:
     "@tokenizer/token" "^0.3.0"
     peek-readable "^4.0.1"
+
+style-loader@^0.23.1:
+  version "0.23.1"
+  resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-0.23.1.tgz#cb9154606f3e771ab6c4ab637026a1049174d925"
+  integrity sha512-XK+uv9kWwhZMZ1y7mysB+zoihsEj4wneFWAS5qoiLwzW0WzSqMrrsIy+a3zkQJq0ipFtBpX5W3MqyRIBF/WFGg==
+  dependencies:
+    loader-utils "^1.1.0"
+    schema-utils "^1.0.0"
 
 style-loader@^2.0.0:
   version "2.0.0"
@@ -10597,6 +10636,11 @@ web-namespaces@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/web-namespaces/-/web-namespaces-2.0.0.tgz#1f6a2d7b5823329abaedeb6bdf09ef2fed35db13"
   integrity sha512-dE7ELZRVWh0ceQsRgkjLgsAvwTuv3kcjSY/hLjqL0llleUlQBDjE9JkB9FCBY5F2mnFEwiyJoowl8+NVGHe8dw==
+
+web-vitals@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/web-vitals/-/web-vitals-1.1.2.tgz#06535308168986096239aa84716e68b4c6ae6d1c"
+  integrity sha512-PFMKIY+bRSXlMxVAQ+m2aw9c/ioUYfDgrYot0YUa+/xa0sakubWhSDyxAKwzymvXVdF4CZI71g06W+mqhzu6ig==
 
 webfontloader@^1.6.28:
   version "1.6.28"
