@@ -28,7 +28,7 @@ const renderAst = new rehypeReact({
       return (
         <Imgix
           src={props.src}
-          sizes="(max-width: 785px) 100vw, 785px"
+          sizes="100%"
           htmlAttributes={{
             alt: props.alt,
           }}
