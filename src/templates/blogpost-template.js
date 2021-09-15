@@ -82,9 +82,13 @@ export default function Home({ location, data, pageContext }) {
                     <FontAwesomeIcon icon={faCaretRight} />
                   </span>
                   {data.microcmsBlog.tag.map(cat => (
-                    <a href="#" className="tagBtn" key={cat.id}>
+                    <Link
+                      to={`/tag/${cat.tagSlug}/`}
+                      className="tagBtn"
+                      key={cat.id}
+                    >
                       {cat.tag}
-                    </a>
+                    </Link>
                   ))}
                 </div>
                 <h1>{data.microcmsBlog.title}</h1>
