@@ -542,6 +542,7 @@ html.open,
 	color: var(--white);
 	line-height: 2;
 	padding: 1em;
+	overflow-x: scroll;
 }
 .entryBody .pre code{
 	background: transparent;
