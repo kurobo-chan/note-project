@@ -1,6 +1,6 @@
 import React from "react"
 import Lottie from "react-lottie"
-import * as animationData from "../animations/waveWhite.json"
+import * as animationData from "../animations/waveWhitedata.json"
 
 export default function Home() {
   const defaultOptions = {

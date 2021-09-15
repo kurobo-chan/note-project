@@ -19,7 +19,6 @@ import rehypeReact from "rehype-react"
 import { Facebook, Twitter } from "react-sharingbuttons"
 import "react-sharingbuttons/dist/main.css"
 
-
 const renderAst = new rehypeReact({
   createElement: React.createElement,
   Fragment: React.Fragment,
@@ -35,6 +34,12 @@ const renderAst = new rehypeReact({
         />
       )
     },
+    pre: props => {
+      return <pre className="pre">{props.children}</pre>
+    },
+    code: props => {
+      return <code className="code">{props.children}</code>
+    },
   },
 }).Compiler
 
@@ -42,6 +47,7 @@ export default function Home({ location, data, pageContext }) {
   const htmlAst = unified()
     .use(parse, { fragment: true })
     .parse(data.microcmsBlog.content)
+
   const pb =
     (data.microcmsBlog.eyecatch.height / data.microcmsBlog.eyecatch.width) * 100
   return (

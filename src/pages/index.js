@@ -112,12 +112,6 @@ export default function Home({ data }) {
                     <div className="cardContent">
                       <h3>{node.title}</h3>
                       <div className="linkList">
-                        <Link
-                          to={`/works/${node.slug}/`}
-                          className="webPageBtn hvr-fade"
-                        >
-                          <FontAwesomeIcon icon={faHome} />
-                        </Link>
                         <a
                           href={node.githuburl}
                           className="githubBtn hvr-fade"
@@ -153,7 +147,7 @@ export const query = graphql`
       edges {
         node {
           id
-          slug
+         
           eyecatch {
             height
             url

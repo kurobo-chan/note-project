@@ -8,15 +8,15 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         edges {
           node {
             id
-            slug
+            
           }
           next {
             title
-            slug
+            
           }
           previous {
             title
-            slug
+            
           }
         }
       }

@@ -158,9 +158,6 @@ button {
   cursor: pointer;
 }
 
-html {
-  scroll-behavior: smooth;
-}
 
 h1 {
   margin-bottom: 1em;
@@ -289,7 +286,7 @@ time .fa-clock,
 .nav {
   box-sizing: border-box;
   z-index: 500;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: -230px;
   width: 230px;
@@ -411,9 +408,7 @@ html.open,
 }
 .cardContent .linkList {
   display: grid;
-  grid-auto-flow: column;
-  align-items: center;
-  justify-content: space-between;
+  place-content: center;
 }
 
 .snsIcon {
@@ -518,7 +513,7 @@ html.open,
   text-align: center;
 }
 .entryBody a {
-  color: var(--primary);
+  color: var(--s-dark);
   opacity: 1;
 }
 .entryBody ul {
@@ -542,7 +537,20 @@ html.open,
   font-weight: bold;
   font-size: larger;
 }
-
+.entryBody .pre{
+	background: var(--codeback);
+	color: var(--white);
+	line-height: 2;
+	padding: 1em;
+}
+.entryBody .pre code{
+	background: transparent;
+	color: currentColor;
+}
+.entryBody .code{
+color: var(--codetext);
+background: var(--p-light);
+}
 /* layout values */
 .header {
   align-items: center;
@@ -699,10 +707,11 @@ html.open,
 }
 .home .portfolio .wave{
 	position: absolute;
-	top: 0;
+	top:0px;
 	left: 0;
 	right: 0;
-	height: 60px;
+	height: 80px;
+	
 }
 .home .portfolio .moreBtn,
 .home .posts .moreBtn {
