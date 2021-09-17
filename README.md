@@ -1,9 +1,11 @@
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <h1 align="center">
-   Fictitious site
+   My main site
 </h1>
 
-This site is designed to look like a fictional site This site is designed to look like.
+This site is a blog about what I've learned in programming and a portfolio of my work that I've created.
+
+https://kurobo-chan.netlify.app
 
 ## Image Gallery
 
