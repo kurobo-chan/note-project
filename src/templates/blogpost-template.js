@@ -24,14 +24,17 @@ const renderAst = new rehypeReact({
   Fragment: React.Fragment,
   components: {
     img: props => {
-      return (
-        <Imgix
-          src={props.src}
-          sizes="100%"
-          htmlAttributes={{
-            alt: props.alt,
-          }}
-        />
+		  return (
+        <figure>
+          <Imgix
+            src={props.src}
+            sizes="100%"
+            htmlAttributes={{
+              alt: props.alt,
+            }}
+          />
+          <figcaption style={{fontWeight:"bold"}}>{props.alt}</figcaption>
+        </figure>
       )
     },
     pre: props => {
