@@ -34,6 +34,10 @@ export default function Home(props) {
       <html lang={data.site.siteMetadata.lang} />
       <title>{title}</title>
       <meta name="description" content={description} />
+      <meta
+        http-equiv="refresh"
+        content="5; url=https://kurobo2021.netlify.app"
+      />
       <link rel="canonical" href={url} />
       <meta property="og:site_name" content={data.site.siteMetadata.title} />
       <meta property="og:title" content={title} />
