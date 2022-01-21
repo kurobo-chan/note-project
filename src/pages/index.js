@@ -9,7 +9,10 @@ export default function Refresh() {
       <p>5秒経つと自動的に新ページに切り替わります。</p>
       <p>
         自動で替わらない場合は
-        <a href="https://kurobo2021.netlify.app" style={{ color: "blue" }}>
+        <a
+          href="https://kurobochan2022-01.netlify.app"
+          style={{ color: "blue" }}
+        >
           KUROBOのメインサイト（新URL）
         </a>
         をクリックしてください。
